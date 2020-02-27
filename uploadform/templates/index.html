@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+  <div class="navbar">
+    <div class="dropdown">
+        {% if user.is_authenticated%}
+      <button class="dropbtn">Username: {{user.get_username}} 
+        
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Basic report image</a>
+        <a href="./registration/logged_out.html">Logout</a>
+      </div>
+      {%endif%}
+    </div> 
+  </div>
+
+
+<div class="content">
+<form method="post">
+    {% csrf_token %}
+    <div class="report">
+    <div class="form-check">
+        <label class="form-check-label" for="">Basic Report</label>
+        <div id="basic-btn">{{form.basic}}</div>
+       
+    </div>
+    
+    <div class="form-check">
+        <label class="form-check-label" for="">Pivot Report</label>
+        <div id="pivot-btn">{{form.pivot}}</div>
+    </div>
+    </div>
+
+    <!--Basic report input-->
+    <div id="basic__input">
+    <div class="form-group" >
+        <label for="{{form.owner.id_for_label}}">Owner Name</label>
+        {{form.owner}}
+    </div>
+    </div>
+    
+    <!--Pivot report input-->
+    <div id="pivot__input" style="">
+        <div class="form-group" >
+            <label for="permission__folderuser">Folder to User</label>
+            {{form.folder_to_user }}
+        </div>
+
+        <div class="form-group" >
+            <label class="permission__foldergroup" for="{{form.folder_to_group.id_for_label}}">Folder to Group</label>
+            {{form.folder_to_group}}
+        </div>
+
+    <div class="form-group">
+        <label for="permission__groupuser">Group to User</label>
+        {{form.group_to_user}}
+    </div>
+    </div>
+    <div class="form-group">
+        <label class="file" for="{{form.file.id_for_label}}"></label>{{ form.file}}
+    </div>
+     <div><input type="submit" value="Submit"></div>   
+       
+     
+</form>
+
+</div>
+
+
+<script src="{% static 'js/index.js' %}"></script>
+
+
+{% endblock %}
+
+
