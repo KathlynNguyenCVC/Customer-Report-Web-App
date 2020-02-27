@@ -21,7 +21,7 @@
 
 
 <div class="content">
-<form method="post">
+<form id="form" method="post">
     {% csrf_token %}
     <div class="report">
     <div class="form-check">
@@ -64,7 +64,7 @@
     <div class="form-group">
         <label class="file" for="{{form.file.id_for_label}}"></label>{{ form.file}}
     </div>
-     <div><input type="submit" value="Submit"></div>   
+     <div><input id="submit-btn" type="submit" value="Submit"></div>   
        
      
 </form>
