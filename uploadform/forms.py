@@ -2,18 +2,15 @@ from django import forms
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
+from .models import Report
+
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ['is_basic_report','owner','permission','file']
 
 
-class UploadForm(forms.Form):
-    file = forms.FileField()
 
-    basic = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'checked': True}))
-    pivot = forms.BooleanField(required=False)
-
-    owner = forms.CharField(max_length=100,help_text='Owner Name')
-    folder_to_user = forms.BooleanField(widget=forms.CheckboxInput(attrs={'checked': True}),disabled=True)
-    folder_to_group = forms.BooleanField(required=False)
-    group_to_user = forms.BooleanField(required=False)
 
 
     

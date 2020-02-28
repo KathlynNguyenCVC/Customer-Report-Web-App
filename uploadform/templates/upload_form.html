@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% block javascript %}
+
+
+{% endblock %}
+  <div class="navbar">
+    <div class="dropdown">
+      {% if user.is_authenticated%}
+      <button class="dropbtn">Username: {{user.get_username}} 
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Basic report image</a>
+        <a href="./registration/logged_out.html">Logout</a>
+      </div>
+      {%endif%}
+    </div> 
+  </div>
+
+<div class="content">
+<form id="form" method="post" enctype="multipart/form-data">{% csrf_token %}
+  <div class="form-group">
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="basic" value="" id="basic-report" checked>
+    <label class="form-check-label" for="defaultCheck1">
+      Basic
+    </label> 
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" name="pivot" value="" id="pivot-report" >
+    <label class="form-check-label" for="defaultCheck2">
+      Pivot
+    </label>
+  </div>
+</div>
+  <!--Owner-->
+  <div id="basic-input">
+    <div class="form-group" >
+      <label for="{{form.owner.id_for_label}}">Owner Name</label>
+      {{form.owner}}
+  </div>
+
+  </div>
+  <!--Permission-->
+  <div id="pivot-input" style="display: none;">
+    <div class="form-group">
+  <div class="form-check disabled">
+    <input class="form-check-input" type="radio" name="folder_to_user" id="folder_to_user" value="folder_to_user" checked disabled>
+    <label class="form-check-label" for="">
+      Folder to User
+    </label> {{form.folder_to_user }}
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="folder_to_group" id="folder_to_group" value="folder_to_group">
+    <label class="form-check-label" for="">
+      Folder to Group
+    </label> {{form.folder_to_group }}
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="group_to_user" id="group_to_user" value="group_to_user">
+    <label class="form-check-label" for="exampleRadios2">
+      Group to User
+    </label>{{form.group_to_user}}
+  </div>
+  </div>
+</div>
+  <div class="form-group">
+    <label for="">Example file input</label>
+    {{form.file}}
+  </div>
+  <input class="btn btn-primary" type="submit" value="Submit"></div>   
+</form>
+<script src="{% static 'js/upload_form.js' %}"></script>
+
+{% endblock %}
+
+
