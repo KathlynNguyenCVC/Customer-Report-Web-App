@@ -4,6 +4,9 @@
     margin-bottom: 20px;
 
 }
+ul{
+  text-align: left;
+}
 .form-check{
     display: inline-block;
 }
@@ -63,4 +66,5 @@
     background-color: gray;
   }
  
+  
   

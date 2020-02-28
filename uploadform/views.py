@@ -11,18 +11,19 @@ def upload_form(request):
     context = {}
     if request.method == 'POST':
         form = ReportForm(request.POST,request.FILES)
-        uploaded_file = request.FILES['']
+        form.is_basic_report = True if request.POST.get("report_type") == 'basic' else False
+        form.permission = request.POST.get("permission")
         if form.is_valid():
             form.save()
-            return HttpResponse("success")
+            return JsonResponse({'message':'success'})
+        else:
+            return JsonResponse({'message':form.errors})
     else: 
         form = ReportForm()
     context['form']=form
     return render(request,'upload_form.html',context)
 
-def report_list(request):
-    reports = Report.objects.all()
-    return render(request,'report_list.html',{'reports':reports})
+
 
 
 
