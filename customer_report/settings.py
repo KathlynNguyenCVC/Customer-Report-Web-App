@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'uploadform',
     'debug_toolbar',
+    'multiselectfield',
+    'progressbarupload',
     
 ]
 
@@ -127,3 +129,24 @@ STATICFILES_DIRS = (
 )
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+
+from django.conf import global_settings
+from django.conf.global_settings import FILE_UPLOAD_HANDLERS
+
+FILE_UPLOAD_HANDLERS = (
+    "progressbarupload.uploadhandler.ProgressBarUploadHandler",
+    "django.core.files.uploadhandler.MemoryFileUploadHandler",
+    "django.core.files.uploadhandler.TemporaryFileUploadHandler",
+)
+
+FILE_UPLOAD_HANDLERS += ('uploadform.uploadfilehandler.UploadProgressCachedHandler', ) 
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+PROGRESSBARUPLOAD_INCLUDE_JQUERY = False
