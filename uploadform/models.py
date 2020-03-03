@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from upload_validator import FileTypeValidator
-from multiselectfield import MultiSelectField
 
 PERMISSION_CHOICES = [
     ('FOLFER_TO_USER','Folder to User'),
@@ -13,11 +12,18 @@ PERMISSION_CHOICES = [
             raise ValidationError(u'File not supported')'''
 
 class Report(models.Model):
-    owner = models.CharField(max_length=100)
     is_basic_report = models.BooleanField(default=True)
-    permission = MultiSelectField(choices=PERMISSION_CHOICES)
+
+    #Basic input
+    owner = models.CharField(max_length=100)
+
+    #Pivot input
+    pivot_perm_folder_to_user = models.BooleanField(default=True)
+    pivot_perm_folder_to_group = models.BooleanField(default=False)
+    pivot_perm_group_to_user = models.BooleanField(default=False)
+
     file = models.FileField(help_text="Formats accepted: CSV", 
-    upload_to='files/report', 
+    upload_to='files', 
     validators=[FileTypeValidator(
         allowed_types=['text/csv','application/vnd.ms-excel','text/plain','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
     )]

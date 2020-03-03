@@ -14,13 +14,11 @@ class ReportForm(forms.ModelForm):
     def __init__(self,*args,**kwargs):
         super(ReportForm,self).__init__(*args,**kwargs)
         #self.fields['permission']= forms.MultipleChoiceField(choices=PERMISSION_CHOICES, widget=forms.CheckboxSelectMultiple())
-        #self.fields['permission'].initial = 'FOLFER_TO_USER'
-        
-        self.fields['permission'].required = False
+        #self.fields['permission'].initial = 'FOLFER_TO_USER'        
         self.fields['owner'].required = False
     class Meta:
         model = Report
-        fields = ['owner','permission','is_basic_report','file'] 
+        fields = ['owner','is_basic_report','file'] 
 
 
 

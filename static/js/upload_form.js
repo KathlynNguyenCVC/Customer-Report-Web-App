@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $('#id_permission_0').attr("disabled",true);
 
     $('[type="radio"][name="report_type"]').change(function(){
         if(this.checked && this.value=="pivot"){

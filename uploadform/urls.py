@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', views.upload_form, name='upload-form'),
-    url(r'^progressbarupload/?', include('progressbarupload.urls')),
+    #path('uploadstatus',views.upload_status,name='upload-status'),
 
 
 ]
