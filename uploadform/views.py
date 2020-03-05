@@ -10,7 +10,10 @@ import json
 
 from .models import Report
 from .forms import ReportForm
+from django.contrib.auth.decorators import login_required
 
+
+@login_required
 def upload_form(request):
     context = {}
     if request.method == 'POST':
@@ -24,24 +27,27 @@ def upload_form(request):
                 form.pivot_perm_folder_to_group = True
             if (request.POST.get("group_to_user")):
                 form.pivot_perm_group_to_user = True
-
-        form.file = request.POST.get("file")
-        uploaded_file = form.file
-        fs = FileSystemStorage()
-        file_name = fs.save(uploaded_file.name,uploaded_file)
-        context['url'] = fs.url(file_name)
-
+        
         if form.is_valid():
+            #handle(request.FILES['files'])
             form.save()
-            return JsonResponse({'message':'success'})
+            myfile = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name,myfile)
+            uploaded_file_url = fs.url(filename)
+            context['url']=uploaded_file_url
+            return JsonResponse({'success':True,'url':uploaded_file_url})
         else:
-            return JsonResponse({'message':form.errors})
+
+            return JsonResponse({'error':form.errors})
     else: 
         form = ReportForm()
     context['form']=form
     return render(request,'upload_form.html',context)
 
-
+'''def handler(request):
+    return JsonResponse(response_data)
+'''
        
 
 

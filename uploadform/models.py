@@ -23,7 +23,7 @@ class Report(models.Model):
     pivot_perm_group_to_user = models.BooleanField(default=False)
 
     file = models.FileField(help_text="Formats accepted: CSV", 
-    upload_to='files', 
+    upload_to='files/report', 
     validators=[FileTypeValidator(
         allowed_types=['text/csv','application/vnd.ms-excel','text/plain','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']
     )]
